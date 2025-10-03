@@ -8,15 +8,10 @@ export default function ScrollSnap() {
     if (!hero || !about) return
 
     let snapping = false
-    let bufferTimer: number | null = null
-    let lastWheelDirection: number | null = null
+    let accumulatedUp = 0 // positive px accumulated when user scrolls up while hero visible
+    let lastDir: number | null = null
 
-    const clearBuffer = () => {
-      if (bufferTimer) {
-        clearTimeout(bufferTimer)
-        bufferTimer = null
-      }
-    }
+    const resetAccum = () => (accumulatedUp = 0)
 
     const onWheel = (e: WheelEvent) => {
       if (snapping) return
@@ -26,7 +21,11 @@ export default function ScrollSnap() {
       const aboutTop = about.offsetTop
       const viewportH = window.innerHeight
 
-      // when scrolling down from hero area -> snap to about
+      // visible ratio of hero in viewport
+      const heroVisibleHeight = Math.max(0, Math.min(heroBottom, top + viewportH) - Math.max(heroTop, top))
+      const heroVisibleRatio = heroVisibleHeight / Math.min(viewportH, hero.offsetHeight)
+
+      // downward intent while in hero -> immediately go to about
       if (e.deltaY > 0 && top < heroBottom && top >= heroTop) {
         snapping = true
         window.scrollTo({ top: aboutTop, behavior: "smooth" })
@@ -34,34 +33,42 @@ export default function ScrollSnap() {
         return
       }
 
-      // when scrolling up and hero is at least partially visible, start buffer
-      const heroVisibleHeight = Math.max(0, Math.min(heroBottom, top + viewportH) - Math.max(heroTop, top))
-      const heroVisibleRatio = heroVisibleHeight / Math.min(viewportH, hero.offsetHeight)
-
+      // upward scrolling while hero is partially visible -> accumulate movement
       if (e.deltaY < 0 && heroVisibleRatio > 0.05) {
-        // user is scrolling up and hero is partially visible -> start/refresh buffer
-        lastWheelDirection = -1
-        clearBuffer()
-        bufferTimer = window.setTimeout(() => {
-          // if within buffer and user kept scrolling up recently, snap to hero
-          if (lastWheelDirection === -1) {
-            snapping = true
-            window.scrollTo({ top: heroTop, behavior: "smooth" })
-            setTimeout(() => (snapping = false), 500)
-          } else {
-            // otherwise bounce back to about top
-            snapping = true
-            window.scrollTo({ top: aboutTop, behavior: "smooth" })
-            setTimeout(() => (snapping = false), 300)
-          }
-          bufferTimer = null
-        }, 300) // 300ms buffer
+        // if direction changed from down to up, reset
+        if (lastDir === 1) resetAccum()
+        lastDir = -1
+
+        accumulatedUp += -e.deltaY // deltaY negative -> add positive movement in px
+
+        // threshold: 20% of hero height or 15% of viewport, whichever smaller
+        const threshold = Math.min(hero.offsetHeight * 0.2, viewportH * 0.15)
+
+        if (accumulatedUp >= threshold) {
+          snapping = true
+          window.scrollTo({ top: heroTop, behavior: "smooth" })
+          setTimeout(() => {
+            snapping = false
+            resetAccum()
+          }, 500)
+        }
         return
       }
 
-      // if scrolling down while in the buffer area, cancel buffer and snap to about
-      if (e.deltaY > 0 && heroVisibleRatio > 0.05) {
-        clearBuffer()
+      // if user scrolls down while hero visible, cancel accumulated and snap to about
+      if (e.deltaY > 0 && heroVisibleRatio > 0.01) {
+        resetAccum()
+        lastDir = 1
+        snapping = true
+        window.scrollTo({ top: aboutTop, behavior: "smooth" })
+        setTimeout(() => (snapping = false), 300)
+        return
+      }
+
+      // if hero visibility drops (user moved away) and accumulated didn't reach threshold -> bounce to about
+      if (heroVisibleRatio <= 0.01 && accumulatedUp > 0) {
+        // didn't reach threshold
+        resetAccum()
         snapping = true
         window.scrollTo({ top: aboutTop, behavior: "smooth" })
         setTimeout(() => (snapping = false), 300)
@@ -69,10 +76,7 @@ export default function ScrollSnap() {
     }
 
     window.addEventListener("wheel", onWheel, { passive: true })
-    return () => {
-      window.removeEventListener("wheel", onWheel as any)
-      clearBuffer()
-    }
+    return () => window.removeEventListener("wheel", onWheel as any)
   }, [])
   return null
 }
