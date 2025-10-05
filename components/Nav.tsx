@@ -7,7 +7,7 @@ export default function Nav() {
       {/* Logo */}
       <div className="flex items-center">
         <Image 
-          src="/logo.png" 
+          src="/logo.svg" 
           alt="IF Design Lab Logo" 
           width={48} 
           height={48} 
