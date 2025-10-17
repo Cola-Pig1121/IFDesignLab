@@ -11,13 +11,38 @@ export default function HeroSection() {
       <Nav />
 
       {/* Hero Text */}
-      <div className="absolute inset-0 flex items-center justify-between px-4 sm:px-8 lg:px-16">
+      {/* Text overlay - mobile: CN top-left, EN bottom-right */}
+      <div className="absolute inset-0 sm:hidden">
+        {/* Left Top - Chinese */}
+        <div className="text-white font-bold leading-tight hero-text-shadow absolute top-16 left-4" style={{ fontSize: 'clamp(28px, 8vw, 75px)' }}>
+          <div className="animate-fade-in-up">
+            破冰，
+          </div>
+          <div className="ml-6 animate-fade-in-up animation-delay-200">
+            前行。
+          </div>
+        </div>
+        {/* Right Bottom - English */}
+        <div className="text-white text-right font-medium hero-text-shadow absolute bottom-4 right-4">
+          <div className="animate-fade-in-up animation-delay-400" 
+               style={{ fontSize: 'clamp(18px, 5vw, 50px)', lineHeight: '1.2' }}>
+            Breaking
+          </div>
+          <div className="animate-fade-in-up animation-delay-600" 
+               style={{ fontSize: 'clamp(18px, 5vw, 50px)', lineHeight: '1.2' }}>
+            Moving forward
+          </div>
+        </div>
+      </div>
+
+      {/* Text overlay - tablet/desktop: original left-right layout */}
+      <div className="absolute inset-0 hidden sm:flex items-center justify-between px-8 lg:px-16">
         {/* Left Text - Chinese */}
         <div className="text-white font-bold leading-tight hero-text-shadow" style={{ fontSize: 'clamp(28px, 8vw, 75px)' }}>
           <div className="animate-fade-in-up">
             破冰，
           </div>
-          <div className="ml-6 sm:ml-12 lg:ml-16 animate-fade-in-up animation-delay-200">
+          <div className="ml-12 lg:ml-16 animate-fade-in-up animation-delay-200">
             前行。
           </div>
         </div>
@@ -36,7 +61,7 @@ export default function HeroSection() {
       </div>
 
       {/* Power By Credit */}
-      <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 text-white text-xs sm:text-sm flex items-center gap-2 opacity-90">
+      <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 text-white text-xs sm:text-sm hidden sm:flex items-center gap-2 opacity-90">
         <span className="font-medium">Power By</span>
         <Image src="/logo.svg" alt="IF Design Lab Logo" width={24} height={24} className="sm:w-8 sm:h-8 opacity-90" />
       </div>

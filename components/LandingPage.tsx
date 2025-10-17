@@ -1,11 +1,16 @@
 "use client"
 import Image from "next/image"
 import Footer from "@/components/Footer"
+import Nav from "@/components/Nav"
 
 export default function LandingPage() {
     return (
         <div className="landing-scroll-container w-full h-[100svh] overflow-y-auto bg-white">
-            <br />
+            <div className="fixed top-0 left-0 right-0 z-50">
+                <Nav solidBg />
+            </div>
+            {/* 占位高度，避免固定导航遮挡内容 */}
+            <div className="h-16 sm:h-20" />
             {/* About Section */}
             <section className="relative bg-[#FBFEFF] w-full min-h-screen text-[#305E81]">
                 <div className="hidden lg:block">
@@ -27,11 +32,11 @@ export default function LandingPage() {
                             x="87.567566"
                             y="50.270271"
                             id="text9"
-                            transform="translate(-7.2972973,8.1081081)"
-                            fontSize={29}
+                            transform="translate(0.7293202,9.2547677)"
+                            fontSize={27.3333}
                             fill="#305e81">
-                            <tspan x="87.567566" y="50.270271" id="tspan19">
-                                <tspan fontFamily="Arial" fontWeight="bold" id="tspan2">About IF Design Lab</tspan>
+                            <tspan x="87.567566" y="50.270271" id="tspan2">
+                                <tspan fontFamily="Arial" fontWeight="bold" id="tspan1">About IF Design Lab</tspan>
                             </tspan>
                         </text>
                         <text
@@ -51,57 +56,40 @@ export default function LandingPage() {
                             x="87.567566"
                             y="50.270271"
                             id="text9-9"
-                            transform="translate(481.13434,0.62365324)"
-                            fontSize={25}
+                            transform="matrix(0.96497952,0,0,1.0064235,493.38502,0.4321752)"
+                            fontSize={24.3535}
                             fill="#305e81">
-                            <tspan x="87.567566" y="50.270271" id="tspan24">
-                                <tspan fontFamily="Arial" fontWeight="bold" id="tspan22">IF Design Lab </tspan>
-                                <tspan fontFamily="Arial" fontWeight="bold" id="tspan23">是一个由设计驱动的实验室，致力于跨学科、多领域的创意</tspan>
+                            <tspan x="87.567566" y="50.270271" id="tspan10">
+                                <tspan fontFamily="Arial" fontWeight="bold" id="tspan7">IF Design Lab </tspan>
+                                <tspan fontFamily="Arial" fontWeight="bold" id="tspan9">是一个由设计驱动的实验室，致力于跨学科、多领域的创意探</tspan>
                             </tspan>
-                            <tspan x="87.567566" y="82.14991" id="tspan26">
-                                <tspan fontFamily="Arial" fontWeight="bold" id="tspan25">探索。我们相信设计不仅是一种专业方法，更是一种源于想象力、创造力、</tspan>
+                            <tspan x="87.567566" y="81.3255" id="tspan12">
+                                <tspan fontFamily="Arial" fontWeight="bold" id="tspan11">索。我们相信设计不仅是一种专业方法，更是一种源于想象力、创造力、好奇</tspan>
                             </tspan>
-                            <tspan x="87.567566" y="114.02955" id="tspan28">
-                                <tspan fontFamily="Arial" fontWeight="bold" id="tspan27">好奇心与爱的实践。在这里，设计的边界被不断拓展，每一个项目都注入独</tspan>
+                            <tspan x="87.567566" y="112.38073" id="tspan14">
+                                <tspan fontFamily="Arial" fontWeight="bold" id="tspan13">心与爱的实践。在这里，设计的边界被不断拓展，每一个项目都注入独特的思</tspan>
                             </tspan>
-                            <tspan x="87.567566" y="145.90919" id="tspan30">
-                                <tspan fontFamily="Arial" fontWeight="bold" id="tspan29">特的思考与深刻的意义。从品牌形象、工业产品到数字艺术与视觉叙事，我</tspan>
+                            <tspan x="87.567566" y="143.43596" id="tspan16">
+                                <tspan fontFamily="Arial" fontWeight="bold" id="tspan15">考与深刻的意义。从品牌形象、工业产品到数字艺术与视觉叙事，我们以开放</tspan>
                             </tspan>
-                            <tspan x="87.567566" y="177.78882" id="tspan32">
-                                <tspan fontFamily="Arial" fontWeight="bold" id="tspan31">们以开放的心态与专业的技术，融合实验精神与多元视角，打造兼具想象力</tspan>
+                            <tspan x="87.567566" y="174.49119" id="tspan18">
+                                <tspan fontFamily="Arial" fontWeight="bold" id="tspan17">的心态与专业的技术，融合实验精神与多元视角，打造兼具想象力与影响力的</tspan>
                             </tspan>
-                            <tspan x="87.567566" y="209.66846" id="tspan34">
-                                <tspan fontFamily="Arial" fontWeight="bold" id="tspan33">与影响力的作品。</tspan>
+                            <tspan x="87.567566" y="205.54642" id="tspan20">
+                                <tspan fontFamily="Arial" fontWeight="bold" id="tspan19">作品。</tspan>
                             </tspan>
                         </text>
                     </svg>
                 </div>
                 <div className="px-4 sm:px-8 lg:px-[80px] py-12 sm:py-16 lg:py-2">
                     <div className="relative lg:hidden">
-                        <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden md:block">
-                            <svg width="100%" height="100%" preserveAspectRatio="none" className="overflow-visible">
-                                <line x1="0" y1="0" x2="100%" y2="0" className="stroke-current text-[#305E81]/35" strokeWidth="1" />
-                                <line x1="0" y1="100%" x2="100%" y2="100%" className="stroke-current text-[#305E81]/35" strokeWidth="1" />
-                                <line x1="260px" y1="-72px" x2="260px" y2="0" className="stroke-current text-[#305E81]/35" strokeWidth="1" />
-                                <line x1="260px" y1="100%" x2="260px" y2="calc(100% + 24px)" className="stroke-current text-[#305E81]/35" strokeWidth="1" />
-                            </svg>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-[260px_1px_1fr] items-stretch">
-                            <div className="grid grid-rows-[1fr_auto]">
-                                <div className="p-4 sm:p-6 lg:p-7">
-                                    <h2 className="text-[22px] sm:text-[26px] lg:text-[32px] font-medium font-patika leading-tight tracking-wide">
-                                        About IF Design Lab
-                                    </h2>
-                                </div>
-                                <div className="p-4 sm:p-6 lg:p-7">
-                                    <p className="text-[14px] sm:text-[15px] lg:text-[16px] font-medium font-patika opacity-80">
-                                        What we do ?
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="bg-[#305E81]/35 w-px hidden md:block" />
 
-                            {/* Right Column Content */}
+                        <div className="flex flex-col">
+                            <div className="p-4 sm:p-6 lg:p-7">
+                                <h2 className="text-[22px] sm:text-[26px] lg:text-[32px] font-medium font-patika leading-tight tracking-wide">
+                                    About IF Design Lab
+                                </h2>
+                            </div>
                             <div className="p-4 sm:p-6 lg:p-7 space-y-4">
                                 <p className="text-[16px] sm:text-[18px] lg:text-[20px] leading-[1.9] font-inter">
                                     IF Design Lab 是一个由设计驱动的实验室，致力于跨学科、多领域的创意探索。
@@ -111,6 +99,11 @@ export default function LandingPage() {
                                     在这里，设计的边界被不断拓展。每一个项目都注入独特的思考与深刻的意义。
                                     从品牌形象、工业产品到数字艺术与视觉叙事，我们以开放的心态与专业的技术，
                                     融合实验精神与多元视角，打造兼具想象力与影响力的作品。
+                                </p>
+                            </div>
+                            <div className="p-4 sm:p-6 lg:p-7">
+                                <p className="text-[14px] sm:text-[15px] lg:text-[16px] font-medium font-patika opacity-80">
+                                    What we do ?
                                 </p>
                             </div>
                         </div>
